@@ -32,22 +32,18 @@ export default function AllEntries() {
             key={index}
             className="bg-gray-300 dark:bg-gray-800 shadow-md dark:shadow-gray-900 m-3 p-4 rounded flex flex-col justify-between transition-colors duration-300"
           >
-            {/* Entry title with dark mode text color */}
             <h1 className="font-bold text-sm md:text-lg text-gray-900 dark:text-gray-100">{entry.title}</h1>
-            {/* Entry description with dark mode text color */}
             <p className="text-center text-lg font-light md:mt-2 md:mb-4 mt-1 mb-3 text-gray-700 dark:text-gray-300">
               {entry.description}
             </p>
             <section className="flex items-center justify-between flex-col md:flex-row pt-2 md:pt-0">
               <div className="flex justify-center">
-                {/* Delete button with no specific dark mode changes */}
                 <button
                   onClick={() => deleteEntry(entry.id as string)}
                   className="m-1 md:m-2 p-1 font-semibold rounded-md bg-red-500 hover:bg-red-700"
                 >
                   ✖
                 </button>
-                {/* Edit button with no specific dark mode changes */}
                 <button
                   onClick={() => navigate(`/edit/${entry.id}`, { replace: true })}
                   className="m-1 md:m-2 p-1 font-semibold rounded-md bg-blue-500 hover:bg-blue-700"
@@ -55,10 +51,16 @@ export default function AllEntries() {
                   🖊
                 </button>
               </div>
-              {/* Entry creation date with dark mode text color */}
-              <time className="text-right text-sm md:text-lg text-gray-600 dark:text-gray-400">
-                {new Date(entry.created_at.toString()).toLocaleDateString()}
-              </time>
+              <div className="flex flex-col items-end">
+                <time className="text-right text-sm md:text-lg text-gray-600 dark:text-gray-400">
+                  Created: {new Date(entry.created_at).toLocaleDateString()}
+                </time>
+                {entry.scheduledDate && (
+                  <time className="text-right text-sm md:text-lg text-gray-600 dark:text-gray-400">
+                    Scheduled: {new Date(entry.scheduledDate).toLocaleDateString()}
+                  </time>
+                )}
+              </div>
             </section>
           </div>
         );
@@ -66,3 +68,4 @@ export default function AllEntries() {
     </section>
   );
 }
+
